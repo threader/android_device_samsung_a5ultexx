@@ -161,8 +161,8 @@ BOARD_ROOT_EXTRA_SYMLINKS := /data/tombstones:/tombstones
 
 # Legacy BLOB Support
 TARGET_PROCESS_SDK_VERSION_OVERRIDE += \
-    /system/bin/mediaserver=23 \
-    /system/bin/mm-qcamera-daemon=23 \
+    /system/bin/mediaserver=22 \
+    /system/vendor/bin/mm-qcamera-daemon=22 \
     /system/vendor/bin/hw/rild=27
 
 # Power
