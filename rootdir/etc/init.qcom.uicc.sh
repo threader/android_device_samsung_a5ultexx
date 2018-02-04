@@ -1,4 +1,4 @@
-#!/system/bin/sh
+#!/vendor/bin/sh
 # Copyright (c) 2014, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ uicc_insert()
         fi
         ;;
     "msm8610")
-        insmod /system/lib/modules/ice40-hcd.ko
+        insmod /system/vendor/lib/modules/ice40-hcd.ko
         ;;
     "msm8226")
         echo 1 > /sys/bus/platform/devices/msm_smsc_hub/enable
@@ -84,7 +84,7 @@ uicc_remove()
         fi
         ;;
     "msm8610")
-        rmmod /system/lib/modules/ice40-hcd.ko
+        rmmod /system/vendor/lib/modules/ice40-hcd.ko
         ;;
     "msm8226")
         echo 0 > /sys/bus/platform/devices/msm_smsc_hub/enable

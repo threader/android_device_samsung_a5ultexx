@@ -53,7 +53,7 @@ on early-boot
 
     chown root audio /sys/kernel/boot_adsp/boot
     setprop qcom.audio.init complete
-    exec u:r:qti_init_shell:s0 -- /system/vendor/etc/init/hw/init.qcom.early_boot.sh
+    exec u:r:qti_init_shell:s0 -- /vendor/bin/init.qcom.early_boot.sh
 
 on boot
     start rmt_storage
@@ -467,6 +467,7 @@ on post-fs-data
 
     # Sensor
     mkdir /persist/sensors 0770 system system
+
 # start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class main
@@ -477,7 +478,7 @@ service qcamerasvr /system/bin/mm-qcamera-daemon
 on property:sys.boot_completed=1
     restart cameraserver
 
-service qseecomd /system/bin/qseecomd
+service qseecomd /system/vendor/bin/qseecomd
    class core
    user root
    group root
@@ -502,17 +503,17 @@ on property:sys.boot_completed=1
     # Enable ZRAM on boot_complete
     swapon_all /system/vendor/etc/fstab.qcom
 
-service time_daemon /system/bin/time_daemon
+service time_daemon /system/vendor/bin/time_daemon
    class late_start
    user root
    group root
    writepid /dev/cpuset/system-background/tasks
 
-service ssr_setup /system/bin/ssr_setup
+service ssr_setup /system/vendor/bin/ssr_setup
     oneshot
     disabled
 
-service ss_ramdump /system/bin/subsystem_ramdump
+service ss_ramdump /system/vendor/bin/subsystem_ramdump
     class main
     user system
     group system
@@ -553,7 +554,7 @@ on property:persist.debug.trace=1
 on property:bluetooth.isEnabled=true
     write /sys/class/bluetooth/hci0/idle_timeout 7000
 
-service qcom-c_main-sh /system/bin/sh /system/vendor/etc/init/hw/init.class_main.sh
+service qcom-c_main-sh /vendor/bin/init.class_main.sh
     class main
     user root
     oneshot
@@ -582,7 +583,7 @@ service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     user root
     oneshot
 
-service rmt_storage /system/bin/rmt_storage
+service rmt_storage /system/vendor/bin/rmt_storage
     class core
     user root
     group system wakelock
@@ -596,7 +597,7 @@ on property:wc_transport.start_hci=true
 on property:wc_transport.start_hci=false
     stop start_hci_filter
 
-service hciattach /system/bin/hci_qcomm_init -e
+service hciattach /system/vendor/bin/hci_qcomm_init -e
     class late_start
     user bluetooth
     group bluetooth net_bt_admin diag radio
@@ -640,6 +641,7 @@ service wpa_supplicant /system/vendor/bin/hw/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+
     
 service wcnss-service /system/vendor/bin/wcnss_service
     class late_start
@@ -647,25 +649,25 @@ service wcnss-service /system/vendor/bin/wcnss_service
     group system wifi radio
     oneshot
 
-service loc_launcher /system/bin/loc_launcher
+service loc_launcher /system/vendor/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
     group gps inet net_raw diag net_admin wifi
     writepid /dev/cpuset/system-background/tasks
 
-service fm_dl /system/bin/sh /system/vendor/etc/init/hw/init.qcom.fm.sh
+service fm_dl /vendor/bin/init.qcom.fm.sh
     class late_start
     user system
     group system
     disabled
     oneshot
 
-service qcom-sh /system/bin/sh /system/vendor/etc/init/hw/init.qcom.sh
+service qcom-sh /vendor/bin/init.qcom.sh
     class late_start
     user root
     oneshot
 
-service qcom-post-boot /system/bin/sh /system/vendor/etc/init/hw/init.qcom.post_boot.sh
+service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     class late_start
     user root
     disabled
@@ -686,7 +688,7 @@ service ril-daemon2 /system/vendor/bin/hw/rild -l /system/vendor/lib/libsec-ril-
 on property:ro.multisim.simslotcount=2
     start ril-daemon2
 
-service usb_uicc_enable /system/bin/sh /system/vendor/etc/init/hw/init.qcom.uicc.sh
+service usb_uicc_enable /vendor/bin/init.qcom.uicc.sh
     class late_start
     user root
     disabled
@@ -698,7 +700,7 @@ on property:sys.usb_uicc.enabled=1
 on property:sys.usb_uicc.enabled=0
     start usb_uicc_enable
 
-service ssr_diag /system/bin/ssr_diag
+service ssr_diag /system/vendor/bin/ssr_diag
     class late_start
     user system
     group system
