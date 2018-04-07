@@ -621,12 +621,6 @@ service wcnss-service /system/vendor/bin/wcnss_service
     group system wifi radio
     oneshot
 
-service loc_launcher /system/vendor/bin/loc_launcher
-    #loc_launcher will start as root and set its uid to gps
-    class late_start
-    group gps inet net_raw diag net_admin wifi
-    writepid /dev/cpuset/system-background/tasks
-
 service fm_dl /vendor/bin/init.qcom.fm.sh
     class late_start
     user system
