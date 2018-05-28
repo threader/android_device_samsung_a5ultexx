@@ -146,7 +146,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
       debug.composition.type=c2d \
       debug.mdpcomp.logs=0 \
       debug.sf.hw=1 \
-      debug.egl.hw=1
+      debug.egl.hw=1 \
+      sys.use_fifo_ui=1
 
 # Time
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -175,7 +176,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
      debug.camcorder.disablemeta=true
-
 
 # Connectivity Engine
 PRODUCT_PROPERTY_OVERRIDES += \
