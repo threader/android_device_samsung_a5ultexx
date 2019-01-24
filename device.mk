@@ -307,7 +307,7 @@ PRODUCT_COPY_FILES += \
 
 # Security configuration file
 PRODUCT_COPY_FILES += \
-    $(DEVICE_PATH)/configs/sec_config:$(TARGET_COPY_OUT_SYSTEM)/etc/sec_config
+    $(DEVICE_PATH)/configs/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
 # Sensor HAL
 PRODUCT_PACKAGES += \
