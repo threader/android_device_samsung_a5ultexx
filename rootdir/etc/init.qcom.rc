@@ -105,9 +105,6 @@ on boot
     mkdir /persist/misc 0770 system system
     mkdir /persist/alarm 0770 system system
 
-    # Create NETMGR daemon socket area
-    mkdir /dev/socket/netmgr 0750 radio radio
-
     setprop wifi.interface wlan0
     setprop ro.telephony.call_ring.multiple false
 
@@ -415,6 +412,10 @@ on post-fs-data
     mkdir /data/misc/display 0770 system graphics
     mkdir /persist/display 0770 system graphics
 
+    # RIL LINK
+    rm -rf /data/data/com.android.providers.telephony/databases
+    rm -rf /data/data/com.android.providers.telephony/shared_prefs
+
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown system system /persist
@@ -570,12 +571,17 @@ on property:vendor.hw.fm.init=1
 on property:vendor.hw.fm.init=0
     write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
 
+on property:dev.bootcomplete=1
+    # Symlink directories to access telephony.db required by RIL
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+
 service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
     class main
     user root
     oneshot
 
-service rmt_storage /system/vendor/bin/rmt_storage
+service rmt_storage /system/bin/rmt_storage
     class core
     user root
     group system wakelock
@@ -669,12 +675,15 @@ on property:sys.boot_completed=1
     start qcom-post-boot
 
 # RIL for multi rild
-service ril-daemon2 /system/vendor/bin/hw/rild -c 2
+service ril-daemon2 /system/vendor/bin/hw/rild -l /system/vendor/lib/libsec-ril-dsds.so -c 2
     class main
     user radio
     disabled
     group radio cache inet misc audio log readproc wakelock
     capabilities BLOCK_SUSPEND NET_ADMIN NET_RAW
+
+on property:ro.multisim.simslotcount=2
+    start ril-daemon2
 
 service usb_uicc_enable /system/bin/sh /system/vendor/etc/init/hw/init.qcom.uicc.sh
     class late_start

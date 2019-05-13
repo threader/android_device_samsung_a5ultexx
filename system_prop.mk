@@ -1,20 +1,26 @@
 # RIL
 PRODUCT_PROPERTY_OVERRIDES += \
-      persist.data.qmi.adb_logmask=0 \
+      rild.libpath=/system/vendor/lib/libsec-ril.so \
+      persist.radio.rat_on=combine \
+      ril.subscription.types=NV,RUIM \
+      ro.ril.telephony.nstrings=7 \
+      ro.telephony.default_network=9 \
+      ro.product_ship=true \
+      ro.ril.transmitpower=true \
       persist.radio.add_power_save=1 \
+      persist.radio.no_wait_for_card=1 \
       persist.radio.apm_sim_not_pwdn=1 \
-      persist.radio.multisim.config=dsds \
-      ro.telephony.call_ring.multiple=false \
-      rild.libpath=/system/vendor/lib/libril-qc-qmi-1.so \
-      ro.config.always_show_roaming=true \
-      ro.telephony.default_network=9,9 \
-      ril.ecclist=000,08,100,101,102,110,112,118,119,120,122,911,999 \
-      ril.ecclist1=000,08,100,101,102,110,112,118,119,120,122,911,999 \
-      persist.data.target=dpm1 \
-      ril.subscription.types=RUIM \
-      persist.radio.custom_ecc=1 \
-      persist.radio.ecc_hard_1=112,911,110,122,119,120,000,118 \
-      persist.radio.ecc_hard_count=1
+      persist.radio.use_se_table_only=1 \
+      persist.radio.jbims=1 \
+      telephony.lteOnGsmDevice=1 \
+      ro.ril.telephony.mqanelements=6 \
+      ro.telephony.call_ring.multiple=0 \
+      ro.telephony.ril.config=simactivation
+
+# Netmgrd
+PRODUCT_PROPERTY_OVERRIDES += \
+     ro.use_data_netmgrd=false \
+     persist.data.netmgrd.qos.enable=false
 
 # Display
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -160,6 +166,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
      debug.camcorder.disablemeta=true
+
+
+# Connectivity Engine
+PRODUCT_PROPERTY_OVERRIDES += \
+     persist.cne.dpm=0 \
+     persist.cne.feature=0 \
+     persist.dpm.feature=0
 
 # WiDi
 PRODUCT_PROPERTY_OVERRIDES += \
