@@ -413,8 +413,8 @@ on post-fs-data
     mkdir /persist/display 0770 system graphics
 
     # RIL LINK
-    rm -rf /data/data/com.android.providers.telephony/databases
-    rm -rf /data/data/com.android.providers.telephony/shared_prefs
+    rm /data/data/com.android.providers.telephony/databases
+    rm /data/data/com.android.providers.telephony/shared_prefs
 
     # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
     # We chown/chmod /persist again so because mount is run as root + defaults
@@ -467,7 +467,6 @@ on post-fs-data
 
     # Sensor
     mkdir /persist/sensors 0770 system system
-
 # start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
     class main
@@ -573,11 +572,13 @@ on property:vendor.hw.fm.init=0
 
 on property:dev.bootcomplete=1
     # Symlink directories to access telephony.db required by RIL
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases 
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs 
+    restorecon /data/data/com.android.providers.telephony/databases 
+    restorecon /data/data/com.android.providers.telephony/shared_prefs
 
-service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config"
-    class main
+service irsc_util /system/vendor/bin/irsc_util "/etc/sec_config" 
+    class main 
     user root
     oneshot
 
