@@ -1,0 +1,2 @@
+allow mediacodec exfat:dir search;
+allow mediacodec exfat:file { getattr read open };
