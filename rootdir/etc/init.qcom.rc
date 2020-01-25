@@ -373,6 +373,8 @@ on late-fs
     mount_all /vendor/etc/fstab.qcom --late
 
 on post-fs
+    start qseecomd
+    
     # Allow writing to the kernel trace log.
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
 
