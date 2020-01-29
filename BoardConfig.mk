@@ -177,9 +177,6 @@ TARGET_USES_OLD_MNC_FORMAT := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.qcom
 
-# RIL
-BOARD_PROVIDES_LIBRIL := true
-
 # SELinux
 include device/qcom/sepolicy-legacy/sepolicy.mk
 BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
@@ -193,11 +190,8 @@ VENDOR_SECURITY_PATCH := 2017-08-01
 
 # Shims
 TARGET_LD_SHIM_LIBS := \
-    /system/lib/libmmjpeg_interface.so|libboringssl-compat.so \
-    /system/lib/libsec-ril.so|libsec-ril_shim.so \
-    /system/lib/libsec-ril-dsds.so|libsec-ril_shim.so \
-    /system/vendor/lib/libizat_core.so|libizat_core_shim.so \
-    /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so
+    /system/lib/libcrypto.so|libboringssl-compat.so \
+    /system/vendor/lib/libizat_core.so|libizat_core_shim.so
 
 # Touchscreen
 TARGET_TAP_TO_WAKE_NODE := "/sys/class/sec/sec_touchscreen/wake_gesture"

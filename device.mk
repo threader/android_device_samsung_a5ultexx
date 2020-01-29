@@ -271,7 +271,6 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    libsec-ril_shim \
     libsecnativefeature \
     libxml2 \
     libcnefeatureconfig \
@@ -296,12 +295,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.renderscript@1.0-impl \
     android.hardware.renderscript@1.0-service
-
-# RIL
-PRODUCT_PACKAGES += \
-	libril \
-	librilutils \
-	rild
 
 # Seccomp
 PRODUCT_COPY_FILES += \
