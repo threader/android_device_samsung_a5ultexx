@@ -374,6 +374,7 @@ on late-fs
 
 on post-fs
     start qseecomd
+    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
     
     # Allow writing to the kernel trace log.
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
